@@ -1,0 +1,294 @@
+SELECT * 
+FROM CustomerDetails;
+
+--Task 1: Categorized the CreditCard
+SELECT CreditCard, COUNT(CustomerId) AS 'Total Credit Card'
+FROM AccountInfo
+GROUP BY CreditCard
+ORDER BY COUNT(CustomerId) DESC;
+
+ALTER Table AccountInfo 
+ADD CreditCardCat VARCHAR(10);
+
+SELECT *
+FROM AccountInfo;
+
+CREATE VIEW CustomerDetails AS 
+SELECT 
+a.*, 
+c.LastName,
+c.Age,
+c.Country,
+c.Gender,
+c.Agegroup
+FROM AccountInfo AS a 
+LEFT JOIN CustomerInfo AS c
+ON a.CustomerId = c.CustomerId;
+
+
+SELECT * 
+FROM CustomerDetails;
+
+
+UPDATE AccountInfo
+SET 
+CreditCardCat=CASE
+WHEN CreditCard = 1 THEN 'Yes'
+WHEN CreditCard = 0 THEN 'No'
+ELSE 'Not linked'
+END
+
+REPLACE VIEW CustomerDetails AS 
+SELECT a.CreditCardCat, 
+c.LastName,
+c.Age,
+c.Country,
+c.Gender,
+c.Agegroup
+FROM AccountInfo AS a 
+LEFT JOIN CustomerInfo AS c
+ON a.CustomerId = c.CustomerId;
+
+select * 
+from AccountInfo;
+
+
+
+
+
+The number of customers with active credit cards is 7161, while those without it are 2839. 
+
+
+--Task 2: Define the Column to include in the view table in accountinfo table
+--Find out how much was lost to the bank from those customers that have churned?
+SELECT ChurnStatus, ROUND(SUM(Balance), 0) AS 'Total Amount'
+FROM CustomerDetails
+GROUP BY ChurnStatus; 
+
+
+
+SELECT * 
+FROM CustomerInfo;
+
+SELECT *
+FROM CustomerDetails
+WHERE ChurnStatus = 'Churned';
+
+SELECT * 
+FROM AccountInfo;
+
+UPDATE AccountInfo
+SET 
+
+Credit_Card_Cat = CASE 
+WHEN CreditCard = 1 THEN 'Yes'
+WHEN CreditCard = 0 THEN 'No'
+ELSE 'Unknown'
+END
+
+--segmentation table
+
+CREATE VIEW ChurnRiskLevel AS 
+SELECT CustomerId, Country, AgeGroup, CreditScoreCat, TenureCat, ProductCat,BalanceCat, ActiveStatus, ChurnStatus 
+CASE WHEN Crdeitscorecat in ('Poor', 'Fair')
+          and BalanceCat = 'Very Low'
+          and ProductCat = 'Low Engagement'
+          and TenureCat  = 'New'
+          THEN 'High Risk'
+
+CASE WHEN (CreditScoreCat in ('Poor', 'Fair') and BalanceCat in ('Very Low', 'Low'))
+         OR (CreditScoreCat in ('Poor', 'Fair') and ProductCat = 'Low Engagement') 
+         OR (BalanceCat in ('Very Low', 'Low') and ProductCat = 'Low Engagement')
+         THEN 'Elevated Risk'
+
+CASE WHEN ProductCat = 'Moderate Engagement' or TenureCat = 'Established'
+        THEN 'MEdium Risk'
+        else 'Low Risk'
+        
+END AS Churnrisk 
+FROM CustomerDetails;
+
+--DEEP DIVE ANALYSIS:
+--NUMBER OF CHURN IN EACH COUNTRY
+SELECT Country, COUNT(CustomerId) as No_of_customers
+FROM CustomerDetails
+WHERE ChurnStatus = 'Churned'
+GROUP BY Country
+ORDER BY Count(CustomerId) DESC;
+
+--Number oif Churn in each country and gender
+SELECT Country,Gender, COUNT(CustomerId) as No_of_customers
+FROM CustomerDetails
+WHERE ChurnStatus = 'Churned'
+GROUP BY Country, Gender
+ORDER BY Country, Count(CustomerId) DESC;
+
+--Overall Churn Rate
+SELECT COUNT(*) AS Total_Customers
+FROM CustomerDetails;
+
+SELECT *
+FROM AccountInfo;
+
+SELECT *
+FROM CustomerDetails;
+
+CREATE VIEW ChurnRiskLevel AS
+SELECT 
+    CustomerId, 
+    Country, 
+    AgeGroup, 
+    CreditScoreCat, 
+    TenureCat, 
+    ProduceCat,
+    CASE
+        WHEN CreditScoreCat IN ('Poor', 'Fair')
+             AND BalanceCat = 'Very Low'
+             AND ProduceCat = 'Low Engagement'
+             AND TenureCat = 'New'
+            THEN 'High Risk'
+
+        WHEN (CreditScoreCat IN ('Poor', 'Fair') AND BalanceCat = 'Very Low')
+          OR (CreditScoreCat IN ('Poor', 'Fair') AND ProduceCat = 'Low Engagement')
+          OR (BalanceCat IN ('Very Low', 'Low') AND ProduceCat = 'Low Engagement')
+            THEN 'Elevated Risk'
+
+        WHEN ProduceCat = 'Moderate Engagement'
+          OR TenureCat = 'Established'
+            THEN 'Medium Risk'
+
+        ELSE 'Low Risk'
+    END AS ChurnRisk
+FROM CustomerDetails;
+
+(SELECT
+    c.ChurnRisk,
+    COUNT(*) AS TotalCustomers,
+    SUM(cd.ChurnFlag) AS ChurnedCustomers,
+    CAST(SUM(cd.ChurnFlag) AS FLOAT) / COUNT(*) AS ChurnRate
+FROM ChurnRiskLevel AS c
+LEFT JOIN CustomerDetails AS cd
+    ON c.CustomerId = cd.CustomerId
+GROUP BY c.ChurnRisk
+ORDER BY ChurnRate DESC;)
+
+
+SELECT * 
+FROM ChurnRiskLevel;
+
+select count(*) as totalcustomers 
+from customerdetails;
+
+SELECT
+    c.ChurnRisk,
+    COUNT(*) AS TotalCustomers
+FROM ChurnRiskLevel AS c
+LEFT JOIN CustomerDetails AS cd
+    ON c.CustomerId = cd.CustomerId
+GROUP BY c.ChurnRisk;
+
+
+select c.ChurnRisk, count(*) as TotalCustomers
+from ChurnRiskLevel as c
+left join CustomerDetails as cd
+on c.CustomerId = cd.CustomerId
+group by c.ChurnRisk;
+
+
+select ChurnRisk, Count(CustomerId)
+from ChurnRiskLevel
+group by Count(CustomerId);
+
+--Deep Dive Analysis entails:
+1. Number of Churn in each country:
+SELECT country, COUNT(*) as 'Number of Customers'
+   FROM CustomerDetails
+   WHERE Churnstatus = 'Churned'
+   GROUP BY Country
+   ORDER BY COUNT(*) DESC; 
+
+2. Number of Churn in each country and gender:
+   SELECT country, gender, COUNT(*) as 'Number of Customers'
+   FROM CustomerDetails
+   WHERE Churnstatus = 'Churned'
+   GROUP BY Country, Gender
+   ORDER BY COUNT(*) DESC; 
+3. Overall Churn rate.(
+-----Get the total number of customers
+-----Get the total number of customers who have churned
+-----Get the (total number of customers who have churned/total number of customers * 100):
+
+   SELECT COUNT(CustomerId) AS total_customers,
+   sum(CASE WHEN ChurnStatus='churned' then 1 else 0 end) as No_of_churned_customers,
+   100*sum(CASE WHEN ChurnStatus='churned' then 1 else 0 end)/COUNT(CustomerId) as percentage_of_churned_customers 
+   FROM CustomerDetails;
+
+
+   select * from CustomerDetails;
+
+
+4. Churn rate by Age Group 
+  SELECT Agegroup, COUNT(CustomerId) AS total_customers,
+   sum(CASE WHEN ChurnStatus='churned' then 1 else 0 end) as No_of_churned_customers,
+   100*sum(CASE WHEN ChurnStatus='churned' then 1 else 0 end)/COUNT(CustomerId) as percentage_of_churned_customers 
+   FROM CustomerDetails
+   GROUP BY Agegroup; 
+
+5. Churnrate by agegroup and country:
+  SELECT Agegroup,Country, COUNT(CustomerId) AS total_customers,
+   sum(CASE WHEN ChurnStatus='churned' then 1 else 0 end) as No_of_churned_customers,
+   100*sum(CASE WHEN ChurnStatus='churned' then 1 else 0 end)/COUNT(CustomerId) as percentage_of_churned_customers 
+   FROM CustomerDetails
+   GROUP BY Agegroup, Country;
+
+6. Churnrate by productcat:
+ SELECT ProduceCat,COUNT(*) AS 'Total Customers',
+ sum(CASE WHEN ChurnStatus = 'Churned' THEN 1 else 0 END) AS 'No of Churned Customers',
+ 100 * sum(CASE WHEN ChurnStatus='churned' then 1 else 0 end)/COUNT(CustomerId) as percentage_of_churned_customers 
+ FROM CustomerDetails
+ GROUP BY ProduceCat;
+ 
+ 7. Churn rate by tenure:
+  SELECT tenurecat,COUNT(*) AS 'Total Customers',
+ sum(CASE WHEN ChurnStatus = 'Churned' THEN 1 else 0 END) AS 'No of Churned Customers',
+ 100 * sum(CASE WHEN ChurnStatus='churned' then 1 else 0 end)/COUNT(CustomerId) as percentage_of_churned_customers 
+ FROM CustomerDetails
+ GROUP BY tenurecat;
+   
+
+8. Churn by Risk Segment:
+   select churnrisk, count(*) as 'total number of customers'
+   from churnrisklevel
+   group by churnrisk; 
+
+   OR
+
+   select c.ChurnRisk, count(*) as TotalCustomers
+   from ChurnRiskLevel as c
+   left join CustomerDetails as cd
+   on c.CustomerId = cd.CustomerId
+   group by c.ChurnRisk;
+
+
+9. Churn rate by engagement(what do you mean by engagement)?;
+
+10.Churn Rate by BalanceCat
+ SELECT BalanceCat,COUNT(*) AS 'Total Customers',
+ sum(CASE WHEN ChurnStatus = 'Churned' THEN 1 else 0 END) AS 'No of Churned Customers',
+ 100 * sum(CASE WHEN ChurnStatus='churned' then 1 else 0 end)/COUNT(CustomerId) as percentage_of_churned_customers 
+ FROM CustomerDetails
+ GROUP BY BalanceCat;
+
+11. Churn Rate by CreditScore:
+ SELECT CreditScoreCat,COUNT(*) AS 'Total Customers',
+ sum(CASE WHEN ChurnStatus = 'Churned' THEN 1 else 0 END) AS 'No of Churned Customers',
+ 100 * sum(CASE WHEN ChurnStatus='churned' then 1 else 0 end)/COUNT(CustomerId) as percentage_of_churned_customers 
+ FROM CustomerDetails
+ GROUP BY CreditScoreCat;
+
+12. Churn Rate by CreditCard
+ SELECT CreditCardCat,COUNT(*) AS 'Total Customers',
+ sum(CASE WHEN ChurnStatus = 'Churned' THEN 1 else 0 END) AS 'No of Churned Customers',
+ 100 * sum(CASE WHEN ChurnStatus='churned' then 1 else 0 end)/COUNT(CustomerId) as percentage_of_churned_customers 
+ FROM CustomerDetails
+ GROUP BY CreditCardCat;
