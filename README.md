@@ -7,17 +7,17 @@ Veritas Bank experienced rising customer exits across key segments. Although ind
 # Dataset & Methodology
 The analysis used customer‑level data including:
 
-# Demographics: age, gender, geography
+Demographics: age, gender, geography
 
-# Financials: account balance
+Financials: account balance
 
-# Behaviour: product usage, activity
+Behaviour: product usage, activity
 
-# Tenure: length of relationship
+Tenure: length of relationship
 
-# Credit score
+Credit score
 
-# Churn status: exited vs retained
+Churn status: exited vs retained
 
 These variables were analysed to uncover segment‑level behaviour and identify churn drivers.
 
