@@ -68,5 +68,5 @@ veritas-bank-churn-analysis/
 
 # Author
 Kelvin Okojie  
-Data Analyst | Power BI • SQL • Python
+Data Analyst | Power BI • SQL • Python . LookerStudio
 Manchester, UK
