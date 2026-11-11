@@ -141,18 +141,14 @@ Power BI – Dashboard development and data visualisation,
 Excel – Data validation and preliminary analysis,
 Data Analytics – Customer segmentation and churn analysis.
 
-# Dashboard & Visual Outputs
+## 📊 Dashboard Preview
 
-Visualisations and dashboard screenshots are available within the images/ folder.
+![Churn Analysis Dashboard](images/dashboard-overview.png)
+*Overview dashboard showing key churn metrics*
 
-The Power BI dashboard provides insights into:
+![Churn by Customer Segment](images/churn-segments.png)
+*Breakdown of churn risk across different customer groups*
 
-Overall churn distribution,
-Customer age segmentation,
-Balance-related churn trends,
-Tenure and loyalty patterns,
-Customer activity analysis,
-High-risk customer identification.
 
 # Business Value
 
