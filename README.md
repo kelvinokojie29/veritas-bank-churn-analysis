@@ -146,7 +146,7 @@ Data Analytics – Customer segmentation and churn analysis.
 ![Churn Analysis Dashboard](https://github.com/kelvinokojie29/veritas-bank-churn-analysis/blob/main/images/Verias%20Bank_1.png)
 *Overview dashboard showing key churn metrics*
 
-![Churn by Customer Segment](images/churn-segments.png)
+![Churn by Customer Segment](https://github.com/kelvinokojie29/veritas-bank-churn-analysis/blob/main/images/Verias%20Bank_1.png)
 *Breakdown of churn risk across different customer groups*
 
 
