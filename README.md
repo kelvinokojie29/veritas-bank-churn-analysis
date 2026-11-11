@@ -12,30 +12,30 @@ The analysis investigates customer attrition trends using a bank customer datase
 Through exploratory data analysis (EDA), the project identifies customer groups with elevated churn risk and highlights the underlying factors influencing customer departures.
 
 # What This Project Covers
-Data cleaning and preparation
-Customer churn pattern analysis
-Demographic segmentation (Age, Gender, Geography)
-Balance and financial behaviour analysis
-Customer tenure and loyalty assessment
-Activity and engagement analysis
-Identification of high-risk customer segments
-Business impact assessment of churn
-Data-driven customer retention recommendations
-Interactive Power BI dashboard development
-SQL-based data exploration and analysis
+Data cleaning and preparation,
+Customer churn pattern analysis,
+Demographic segmentation (Age, Gender, Geography),
+Balance and financial behaviour analysis,
+Customer tenure and loyalty assessment,
+Activity and engagement analysis,
+Identification of high-risk customer segments,
+Business impact assessment of churn,
+Data-driven customer retention recommendations,
+Interactive Power BI dashboard development,
+SQL-based data exploration and analysis.
 
 
 # Business Problem
 
-Customer churn remains one of the most significant challenges faced by retail banks. While individual customer departures may appear insignificant, cumulative losses can significantly impact business growth and profitability.
+Customer churn remains one of the biggest challenges for retail banks. While individual customer departures may appear insignificant, cumulative losses can significantly impact business growth and profitability.
 
 For Veritas Bank, rising churn rates raised concerns around:
 
-Loss of high-value customers
-Declining customer lifetime value
-Increased customer acquisition costs
-Reduced cross-selling opportunities
-Potential service and engagement gaps
+Loss of high-value customers,
+Declining customer lifetime value,
+Increased customer acquisition costs,
+Reduced cross-selling opportunities,
+Potential service and engagement gaps.
 
 This analysis aimed to identify the factors driving customer churn and develop strategies to improve customer retention.
 
@@ -90,7 +90,7 @@ Younger customers demonstrated stronger customer retention.
 Customer age emerged as a significant churn predictor.
 
 2. Balance & Churn Risk
-Customers with high account balances exhibited elevated churn risk.
+Customers with high account balances had a higher churn risk.
 Large deposits did not necessarily translate to loyalty.
 High-value customers may leave despite contributing substantial revenue.
 
@@ -107,12 +107,12 @@ Business Impact
 
 # Customer churn can negatively affect organisational performance through:
 
-Direct revenue loss
-Deposit withdrawals and declining asset value
-Increased customer acquisition expenses
-Reduced customer lifetime value (CLV)
-Lower cross-selling and upselling opportunities
-Decreased long-term profitability
+Direct revenue loss,
+Deposit withdrawals and declining asset value,
+Increased customer acquisition expenses,
+Reduced customer lifetime value (CLV),
+Lower cross-selling and upselling opportunities,
+Decreased long-term profitability.
 
 # Recommendations
 
@@ -136,10 +136,10 @@ Monitor customer behaviour in real time.
 Trigger proactive retention interventions before customers disengage.
 
 # Tools & Technologies
-SQL – Data querying, cleaning, and analysis
-Power BI – Dashboard development and data visualisation
-Excel – Data validation and preliminary analysis
-Data Analytics – Customer segmentation and churn analysis
+SQL – Data querying, cleaning, and analysis,
+Power BI – Dashboard development and data visualisation,
+Excel – Data validation and preliminary analysis,
+Data Analytics – Customer segmentation and churn analysis.
 
 # Dashboard & Visual Outputs
 
@@ -147,12 +147,12 @@ Visualisations and dashboard screenshots are available within the images/ folder
 
 The Power BI dashboard provides insights into:
 
-Overall churn distribution
-Customer age segmentation
-Balance-related churn trends
-Tenure and loyalty patterns
-Customer activity analysis
-High-risk customer identification
+Overall churn distribution,
+Customer age segmentation,
+Balance-related churn trends,
+Tenure and loyalty patterns,
+Customer activity analysis,
+High-risk customer identification.
 
 # Business Value
 
@@ -160,8 +160,6 @@ This analysis demonstrates how customer demographics, account balances, engageme
 
 By identifying high-risk customer segments and implementing targeted retention strategies, Veritas Bank can reduce customer attrition, improve customer satisfaction, and strengthen long-term profitability.
 
-
-This project is released under the MIT License. See the LICENSE file for additional details.
 
 # Author
 
