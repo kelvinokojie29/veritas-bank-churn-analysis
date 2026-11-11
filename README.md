@@ -85,7 +85,7 @@ Generated actionable retention recommendations
 
 # Key Findings from the Analysis
 1. Age & Churn Behaviour
-Middle-aged customers recorded the highest churn rates.
+Customers aged **35–55** have the **highest churn rate at ~32%**, which is **1.6x higher** than customers under 30.
 Younger customers demonstrated stronger customer retention.
 Customer age emerged as a significant churn predictor.
 
